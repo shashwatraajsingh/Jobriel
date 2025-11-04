@@ -1,25 +1,25 @@
 import { NextResponse } from 'next/server'
-import { query } from '@/lib/db'
+import { db } from '@/lib/firebase'
 
 export async function GET() {
   try {
-    console.log('Attempting to wake up database...')
-    
-    // Simple query to wake up the database
-    const result = await query('SELECT NOW() as current_time')
+    console.log('Waking up Firebase...')
+    const testRef = db.collection('_health').doc('check')
+    await testRef.set({ timestamp: new Date().toISOString(), status: 'awake' })
+    console.log('Firebase is awake!')
     
     return NextResponse.json({
       success: true,
-      message: 'Database is awake',
-      timestamp: result.rows[0].current_time
+      message: 'Firebase is awake',
+      timestamp: new Date().toISOString()
     })
   } catch (error: any) {
-    console.error('Database wake-up failed:', error)
+    console.error('Firebase wake-up failed:', error)
     
     return NextResponse.json({
       success: false,
       error: error.message,
-      code: error.code
+      message: 'Firebase wake-up failed'
     }, { status: 500 })
   }
 }
