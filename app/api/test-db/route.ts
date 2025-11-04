@@ -1,23 +1,25 @@
 import { NextResponse } from 'next/server'
-import { query } from '@/lib/db'
+import { db } from '@/lib/firebase'
 
 export async function GET() {
   try {
-    // Simple test query
-    const result = await query('SELECT NOW() as current_time')
+    // Simple test query - check Firebase connection
+    const testRef = db.collection('_test').doc('connection')
+    await testRef.set({ timestamp: new Date().toISOString() })
+    const doc = await testRef.get()
     
     return NextResponse.json({
       success: true,
-      message: 'Database connection successful',
-      timestamp: result && Array.isArray(result.rows) ? result.rows[0]?.current_time : new Date().toISOString()
+      message: 'Firebase connection successful',
+      timestamp: doc.data()?.timestamp || new Date().toISOString()
     })
   } catch (error) {
-    console.error('Database test failed:', error)
+    console.error('Firebase test failed:', error)
     
     return NextResponse.json({
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error',
-      message: 'Database connection failed'
+      message: 'Firebase connection failed'
     }, { status: 500 })
   }
 }
