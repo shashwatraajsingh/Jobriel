@@ -1,14 +1,13 @@
 # 🚀 Deployment Guide - Job Preparation Assistant
 
-This guide covers deploying your Job Preparation Assistant to various platforms including Vercel, Netlify, Railway, and self-hosted solutions.
 
 ## 📋 Prerequisites
 
 Before deploying, ensure you have:
 - Node.js 18+ installed
-- A PostgreSQL database
-- API keys for Gemini and Perplexity
-- Git repository with your code
+- A PostgreSQL database (Neon/Supabase/Railway)
+- OpenRouter account and API key (GPT-4o-mini)
+- Firebase project (for auth and storage)
 
 ## 🔧 Environment Variables
 
@@ -18,20 +17,30 @@ Create a `.env` file with the following variables:
 # Database
 DATABASE_URL=postgresql://username:password@host:port/database_name
 
+# Firebase
+FIREBASE_PROJECT_ID=your-firebase-project-id
+FIREBASE_SERVICE_ACCOUNT={...JSON...}
+
 # AI APIs
-GEMINI_API_KEY=your_gemini_api_key_here
-PERPLEXITY_API_KEY=your_perplexity_api_key_here
+OPEN_ROUTER_API_KEY=your_openrouter_api_key_here
 
 # Authentication
 JWT_SECRET=your-super-secret-jwt-key-minimum-32-characters
 
 # App Config
 NEXT_PUBLIC_APP_URL=https://your-domain.com
+NEXT_PUBLIC_FIREBASE_API_KEY=your-firebase-api-key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-firebase-auth-domain
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-firebase-project-id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-firebase-storage-bucket
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your-firebase-messaging-sender-id
+NEXT_PUBLIC_FIREBASE_APP_ID=your-firebase-app-id
 ```
 
 ## 🗄️ Database Setup
 
 ### Option 1: Neon (Recommended)
+{{ ... }}
 1. Go to [Neon](https://neon.tech) and create a free account
 2. Create a new project
 3. Copy the connection string
@@ -49,12 +58,7 @@ NEXT_PUBLIC_APP_URL=https://your-domain.com
 3. Add PostgreSQL service
 4. Copy the connection string
 
-### Initialize Database Schema
-Run this command to set up your database tables:
-
-```bash
-node -e "require('./lib/db').initDB()"
-```
+> **Note:** The project currently uses Firebase for authentication and Postgres for storage. Run migrations or schema setup scripts according to the `lib/db` utilities provided in the repo (if available). For Prisma or Drizzle users, follow the respective migration commands.
 
 ## 🌐 Deployment Options
 
@@ -99,28 +103,7 @@ node -e "require('./lib/db').initDB()"
 3. Add environment variables in Settings → Environment Variables
 4. Deploy
 
-### 2. Netlify
-
-1. **Build Settings**
-   - Build command: `npm run build`
-   - Publish directory: `.next`
-
-2. **Install Netlify CLI**
-   ```bash
-   npm install -g netlify-cli
-   ```
-
-3. **Login and Deploy**
-   ```bash
-   netlify login
-   netlify init
-   netlify deploy --prod
-   ```
-
-4. **Environment Variables**
-   Add in Netlify Dashboard → Site Settings → Environment Variables
-
-### 3. Railway
+### 2. Railway
 
 1. **Connect Repository**
    - Go to [Railway](https://railway.app)
@@ -133,7 +116,7 @@ node -e "require('./lib/db').initDB()"
 3. **Deploy**
    - Railway automatically deploys on git push
 
-### 4. DigitalOcean App Platform
+### 3. DigitalOcean App Platform
 
 1. **Create App**
    ```bash
@@ -169,7 +152,7 @@ node -e "require('./lib/db').initDB()"
        type: SECRET
    ```
 
-### 5. Self-Hosted (VPS/Dedicated Server)
+### 4. Self-Hosted (VPS/Dedicated Server)
 
 #### Using PM2 (Process Manager)
 
@@ -196,19 +179,18 @@ node -e "require('./lib/db').initDB()"
      apps: [{
        name: 'job-prep-assistant',
        script: 'npm',
-       args: 'start',
        cwd: '/path/to/job-prep-assistant',
        env: {
          NODE_ENV: 'production',
          PORT: 3000,
          DATABASE_URL: 'your_database_url',
-         GEMINI_API_KEY: 'your_gemini_key',
-         PERPLEXITY_API_KEY: 'your_perplexity_key',
+         OPEN_ROUTER_API_KEY: 'your_openrouter_key',
          JWT_SECRET: 'your_jwt_secret',
          NEXT_PUBLIC_APP_URL: 'https://yourdomain.com'
        }
      }]
    }
+{{ ... }}
    ```
 
 4. **Start with PM2**
@@ -294,47 +276,7 @@ ENV HOSTNAME "0.0.0.0"
 CMD ["node", "server.js"]
 ```
 
-### Docker Compose
-```yaml
-version: '3.8'
-
-services:
-  app:
-    build: .
-    ports:
-      - "3000:3000"
-    environment:
-      - DATABASE_URL=${DATABASE_URL}
-      - GEMINI_API_KEY=${GEMINI_API_KEY}
-      - PERPLEXITY_API_KEY=${PERPLEXITY_API_KEY}
-      - JWT_SECRET=${JWT_SECRET}
-      - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
-    depends_on:
-      - postgres
-
-  postgres:
-    image: postgres:15
-    environment:
-      - POSTGRES_DB=job_prep_db
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-
-volumes:
-  postgres_data:
-```
-
-### Deploy with Docker
-```bash
-# Build and run
-docker-compose up -d
-
-# Initialize database
-docker-compose exec app node -e "require('./lib/db').initDB()"
-```
+> **Docker Note:** Generate a custom `Dockerfile` using Next.js 14 standalone output. Ensure environment variables (including `OPEN_ROUTER_API_KEY` and Firebase config) are injected via your orchestrator or `docker-compose.yml`.
 
 ## 🔐 Security Considerations
 
