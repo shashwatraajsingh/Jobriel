@@ -23,21 +23,21 @@ interface LinkedInAnalysisResultProps {
 
 export default function LinkedInAnalysisResult({ result }: LinkedInAnalysisResultProps) {
   const getScoreColor = (score: number) => {
-    if (score >= 80) return 'from-green-500 to-emerald-600'
-    if (score >= 60) return 'from-yellow-500 to-orange-600'
-    return 'from-red-500 to-rose-600'
+    if (score >= 80) return 'from-violet to-violet-light'
+    if (score >= 60) return 'from-amber-400 to-amber-500'
+    return 'from-rose-400 to-rose-500'
   }
 
   const getScoreTextColor = (score: number) => {
-    if (score >= 80) return 'text-green-600'
-    if (score >= 60) return 'text-yellow-600'
-    return 'text-red-600'
+    if (score >= 80) return 'text-violet'
+    if (score >= 60) return 'text-amber-500'
+    return 'text-rose-500'
   }
 
   const getScoreBgColor = (score: number) => {
-    if (score >= 80) return 'bg-green-50 border-green-200'
-    if (score >= 60) return 'bg-yellow-50 border-yellow-200'
-    return 'bg-red-50 border-red-200'
+    if (score >= 80) return 'bg-violet/10 border-violet/20'
+    if (score >= 60) return 'bg-amber-100 border-amber-200'
+    return 'bg-rose-100 border-rose-200'
   }
 
   return (
@@ -46,44 +46,44 @@ export default function LinkedInAnalysisResult({ result }: LinkedInAnalysisResul
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm"
+        className="rounded-2xl border border-luxe-border bg-white p-8 shadow-card"
       >
         <div className="mb-6 flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50">
-            <Linkedin className="h-6 w-6 text-blue-600" />
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-violet/10">
+            <Linkedin className="h-6 w-6 text-violet" />
           </div>
           <div>
-            <h2 className="text-2xl font-semibold text-gray-900">LinkedIn Profile Analysis</h2>
-            <p className="text-sm text-gray-500">Comprehensive profile optimization report</p>
+            <h2 className="text-2xl font-semibold text-text-heading">LinkedIn Profile Analysis</h2>
+            <p className="text-sm text-text-body">Comprehensive profile optimization report</p>
           </div>
         </div>
         
         {/* Score Metrics Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <div className="rounded-xl border border-gray-200 bg-gradient-to-br from-blue-50 to-blue-100 p-4">
+          <div className={`rounded-xl border ${getScoreBgColor(result.overallScore)} p-4 bg-white`}>
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-gray-700">Overall Score</span>
-              <Award className="h-5 w-5 text-blue-600" />
+              <span className="text-sm font-medium text-text-body">Overall Score</span>
+              <Award className="h-5 w-5 text-violet" />
             </div>
             <div className={`text-3xl font-bold ${getScoreTextColor(result.overallScore)}`}>
               {result.overallScore}%
             </div>
           </div>
 
-          <div className="rounded-xl border border-gray-200 bg-gradient-to-br from-purple-50 to-purple-100 p-4">
+          <div className={`rounded-xl border ${getScoreBgColor(result.profileCompleteness)} p-4 bg-white`}>
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-gray-700">Completeness</span>
-              <Target className="h-5 w-5 text-purple-600" />
+              <span className="text-sm font-medium text-text-body">Completeness</span>
+              <Target className="h-5 w-5 text-violet" />
             </div>
             <div className={`text-3xl font-bold ${getScoreTextColor(result.profileCompleteness)}`}>
               {result.profileCompleteness}%
             </div>
           </div>
 
-          <div className="rounded-xl border border-gray-200 bg-gradient-to-br from-green-50 to-green-100 p-4">
+          <div className={`rounded-xl border ${getScoreBgColor(result.keywordMatch)} p-4 bg-white`}>
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-gray-700">Keyword Match</span>
-              <TrendingUp className="h-5 w-5 text-green-600" />
+              <span className="text-sm font-medium text-text-body">Keyword Match</span>
+              <TrendingUp className="h-5 w-5 text-violet" />
             </div>
             <div className={`text-3xl font-bold ${getScoreTextColor(result.keywordMatch)}`}>
               {result.keywordMatch}%
@@ -93,23 +93,23 @@ export default function LinkedInAnalysisResult({ result }: LinkedInAnalysisResul
 
         {/* Profile Strength Breakdown */}
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-900">Section Scores</h3>
-          
+          <h3 className="text-lg font-semibold text-text-heading">Section Scores</h3>
+
           {Object.entries(result.profileStrength).map(([section, data], index) => (
             <motion.div
               key={section}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}
-              className={`rounded-xl border p-4 ${getScoreBgColor(data.score)}`}
+              className={`rounded-xl border p-4 bg-white ${getScoreBgColor(data.score)}`}
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="font-medium text-gray-900 capitalize">{section}</span>
+                <span className="font-medium text-text-heading capitalize">{section}</span>
                 <span className={`text-xl font-bold ${getScoreTextColor(data.score)}`}>
                   {data.score}%
                 </span>
               </div>
-              <div className="relative h-2 w-full overflow-hidden rounded-full bg-white/50 mb-2">
+              <div className="relative h-2 w-full overflow-hidden rounded-full bg-violet/10 mb-2">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${data.score}%` }}
@@ -117,23 +117,21 @@ export default function LinkedInAnalysisResult({ result }: LinkedInAnalysisResul
                   className={`h-full rounded-full bg-gradient-to-r ${getScoreColor(data.score)}`}
                 />
               </div>
-              <p className="text-sm text-gray-700">{data.feedback}</p>
+              <p className="text-sm text-text-body">{data.feedback}</p>
             </motion.div>
           ))}
         </div>
       </motion.div>
-
-      {/* Missing Elements Alert */}
       {result.missingElements && result.missingElements.length > 0 && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="rounded-2xl border border-orange-200 bg-orange-50 p-6 shadow-sm"
+          className="rounded-2xl border border-amber-200 bg-amber-50 p-6 shadow-card"
         >
           <div className="flex items-center gap-2 mb-4">
-            <AlertTriangle className="h-5 w-5 text-orange-600" />
-            <h3 className="font-semibold text-orange-900">Missing Profile Elements</h3>
+            <AlertTriangle className="h-5 w-5 text-amber-500" />
+            <h3 className="font-semibold text-text-heading">Missing Profile Elements</h3>
           </div>
           <ul className="space-y-2">
             {result.missingElements.map((item, i) => (
@@ -151,13 +149,13 @@ export default function LinkedInAnalysisResult({ result }: LinkedInAnalysisResul
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm"
+        className="rounded-2xl border border-luxe-border bg-white p-8 shadow-card"
       >
         <div className="space-y-6">
           <div>
             <div className="mb-3 flex items-center gap-2">
-              <CheckCircle2 className="h-5 w-5 text-green-600" />
-              <h3 className="font-semibold text-green-700">Strengths</h3>
+              <CheckCircle2 className="h-5 w-5 text-violet" />
+              <h3 className="font-semibold text-text-heading">Strengths</h3>
             </div>
             <ul className="space-y-2">
               {result.strengths.map((item, i) => (
@@ -166,9 +164,9 @@ export default function LinkedInAnalysisResult({ result }: LinkedInAnalysisResul
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3 + i * 0.05 }}
-                  className="flex items-start gap-2 text-sm text-gray-700"
+                  className="flex items-start gap-2 text-sm text-text-body"
                 >
-                  <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-green-500" />
+                  <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-violet" />
                   {item}
                 </motion.li>
               ))}
@@ -177,8 +175,8 @@ export default function LinkedInAnalysisResult({ result }: LinkedInAnalysisResul
 
           <div>
             <div className="mb-3 flex items-center gap-2">
-              <XCircle className="h-5 w-5 text-red-600" />
-              <h3 className="font-semibold text-red-700">Areas for Improvement</h3>
+              <XCircle className="h-5 w-5 text-rose-500" />
+              <h3 className="font-semibold text-text-heading">Areas for Improvement</h3>
             </div>
             <ul className="space-y-2">
               {result.weaknesses.map((item, i) => (
@@ -187,9 +185,9 @@ export default function LinkedInAnalysisResult({ result }: LinkedInAnalysisResul
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3 + i * 0.05 }}
-                  className="flex items-start gap-2 text-sm text-gray-700"
+                  className="flex items-start gap-2 text-sm text-text-body"
                 >
-                  <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-red-500" />
+                  <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-rose-500" />
                   {item}
                 </motion.li>
               ))}
@@ -198,8 +196,8 @@ export default function LinkedInAnalysisResult({ result }: LinkedInAnalysisResul
 
           <div>
             <div className="mb-3 flex items-center gap-2">
-              <Lightbulb className="h-5 w-5 text-blue-600" />
-              <h3 className="font-semibold text-blue-700">Actionable Suggestions</h3>
+              <Lightbulb className="h-5 w-5 text-violet" />
+              <h3 className="font-semibold text-text-heading">Actionable Suggestions</h3>
             </div>
             <ul className="space-y-2">
               {result.suggestions.map((item, i) => (
@@ -208,9 +206,9 @@ export default function LinkedInAnalysisResult({ result }: LinkedInAnalysisResul
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3 + i * 0.05 }}
-                  className="flex items-start gap-2 text-sm text-gray-700"
+                  className="flex items-start gap-2 text-sm text-text-body"
                 >
-                  <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-blue-500" />
+                  <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-violet" />
                   {item}
                 </motion.li>
               ))}

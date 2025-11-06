@@ -75,15 +75,15 @@ export default function ResumeUpload({ onAnalysisComplete }: ResumeUploadProps) 
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="rounded-3xl border border-gray-800 bg-gray-900/50 backdrop-blur-xl p-10 shadow-2xl"
+      className="rounded-3xl border border-luxe-border bg-white backdrop-blur-sm p-10 shadow-card"
     >
       <div className="mb-8 flex items-center gap-4">
-        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600">
+        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-violet to-violet-light shadow-soft">
           <Linkedin className="h-8 w-8 text-white" />
         </div>
         <div>
-          <h2 className="text-3xl font-bold text-white">Analyze Profile</h2>
-          <p className="text-base text-gray-400 mt-1">Get AI-powered optimization insights</p>
+          <h2 className="text-3xl font-bold text-text-heading">Analyze Profile</h2>
+          <p className="text-base text-text-body mt-1">Get AI-powered optimization insights</p>
         </div>
       </div>
 
@@ -92,110 +92,110 @@ export default function ResumeUpload({ onAnalysisComplete }: ResumeUploadProps) 
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex items-start gap-3 rounded-2xl border border-red-500/20 bg-red-500/10 p-4"
+            className="flex items-start gap-3 rounded-2xl border border-red-200 bg-red-50 p-4"
           >
-            <AlertCircle className="h-5 w-5 flex-shrink-0 text-red-400 mt-0.5" />
+            <AlertCircle className="h-5 w-5 flex-shrink-0 text-red-500 mt-0.5" />
             <div className="flex-1">
-              <p className="text-sm font-medium text-red-300">Analysis Failed</p>
-              <p className="mt-1 text-sm text-red-400">{error}</p>
+              <p className="text-sm font-semibold text-red-600">Analysis Failed</p>
+              <p className="mt-1 text-sm text-red-500">{error}</p>
             </div>
           </motion.div>
         )}
         
         <div>
-          <label className="mb-3 block text-sm font-semibold text-gray-300">
-            Target Job Role <span className="text-green-400">*</span>
+          <label className="mb-3 block text-sm font-semibold text-text-body">
+            Target Job Role <span className="text-violet">*</span>
           </label>
           <input
             type="text"
             value={jobRole}
             onChange={(e) => setJobRole(e.target.value)}
             placeholder="e.g., Senior Software Engineer"
-            className="w-full rounded-2xl border border-gray-700 bg-gray-800/50 px-5 py-4 text-white placeholder-gray-500 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/30 transition-all"
+            className="w-full rounded-2xl border border-luxe-border bg-white px-5 py-4 text-text-heading placeholder:text-text-body/60 focus:border-violet focus:outline-none focus:ring-2 focus:ring-violet/20 transition-all"
             required
           />
         </div>
 
         <div className="grid grid-cols-1 gap-6">
           <div>
-            <label className="mb-3 block text-sm font-semibold text-gray-300">
-              LinkedIn Headline <span className="text-green-400">*</span>
+            <label className="mb-3 block text-sm font-semibold text-text-body">
+              LinkedIn Headline <span className="text-violet">*</span>
             </label>
             <input
               type="text"
               value={headline}
               onChange={(e) => setHeadline(e.target.value)}
               placeholder="e.g., Senior Software Engineer | Full-Stack Developer | React & Node.js"
-              className="w-full rounded-2xl border border-gray-700 bg-gray-800/50 px-5 py-4 text-white placeholder-gray-500 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/30 transition-all"
+              className="w-full rounded-2xl border border-luxe-border bg-white px-5 py-4 text-text-heading placeholder:text-text-body/60 focus:border-violet focus:outline-none focus:ring-2 focus:ring-violet/20 transition-all"
               required
             />
           </div>
 
           <div>
-            <label className="mb-3 block text-sm font-semibold text-gray-300">
-              About/Summary <span className="text-green-400">*</span>
+            <label className="mb-3 block text-sm font-semibold text-text-body">
+              About/Summary <span className="text-violet">*</span>
             </label>
             <textarea
               value={summary}
               onChange={(e) => setSummary(e.target.value)}
               placeholder="Paste your LinkedIn About section here..."
               rows={4}
-              className="w-full rounded-2xl border border-gray-700 bg-gray-800/50 px-5 py-4 text-white placeholder-gray-500 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/30 resize-none transition-all"
+              className="w-full rounded-2xl border border-luxe-border bg-white px-5 py-4 text-text-heading placeholder:text-text-body/60 focus:border-violet focus:outline-none focus:ring-2 focus:ring-violet/20 resize-none transition-all"
               required
             />
           </div>
 
           <div>
-            <label className="mb-3 block text-sm font-semibold text-gray-300">
-              Experience <span className="text-green-400">*</span>
+            <label className="mb-3 block text-sm font-semibold text-text-body">
+              Experience <span className="text-violet">*</span>
             </label>
             <textarea
               value={experience}
               onChange={(e) => setExperience(e.target.value)}
               placeholder="Paste your work experience (job titles, companies, responsibilities)..."
               rows={5}
-              className="w-full rounded-2xl border border-gray-700 bg-gray-800/50 px-5 py-4 text-white placeholder-gray-500 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/30 resize-none transition-all"
+              className="w-full rounded-2xl border border-luxe-border bg-white px-5 py-4 text-text-heading placeholder:text-text-body/60 focus:border-violet focus:outline-none focus:ring-2 focus:ring-violet/20 resize-none transition-all"
               required
             />
           </div>
 
           <div>
-            <label className="mb-3 block text-sm font-semibold text-gray-300">
-              Skills <span className="text-green-400">*</span>
+            <label className="mb-3 block text-sm font-semibold text-text-body">
+              Skills <span className="text-violet">*</span>
             </label>
             <input
               type="text"
               value={skills}
               onChange={(e) => setSkills(e.target.value)}
               placeholder="e.g., JavaScript, React, Node.js, Python, AWS, Docker"
-              className="w-full rounded-2xl border border-gray-700 bg-gray-800/50 px-5 py-4 text-white placeholder-gray-500 focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/30 transition-all"
+              className="w-full rounded-2xl border border-luxe-border bg-white px-5 py-4 text-text-heading placeholder:text-text-body/60 focus:border-violet focus:outline-none focus:ring-2 focus:ring-violet/20 transition-all"
               required
             />
           </div>
 
           <div>
-            <label className="mb-3 block text-sm font-semibold text-gray-300">
-              Education <span className="text-gray-500">(Optional)</span>
+            <label className="mb-3 block text-sm font-semibold text-text-body">
+              Education <span className="text-text-muted">(Optional)</span>
             </label>
             <input
               type="text"
               value={education}
               onChange={(e) => setEducation(e.target.value)}
               placeholder="e.g., B.S. Computer Science, Stanford University"
-              className="w-full rounded-2xl border border-gray-700 bg-gray-800/50 px-5 py-4 text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-all"
+              className="w-full rounded-2xl border border-luxe-border bg-white px-5 py-4 text-text-heading placeholder:text-text-body/60 focus:border-violet focus:outline-none focus:ring-2 focus:ring-violet/20 transition-all"
             />
           </div>
 
           <div>
-            <label className="mb-3 block text-sm font-semibold text-gray-300">
-              Certifications <span className="text-gray-500">(Optional)</span>
+            <label className="mb-3 block text-sm font-semibold text-text-body">
+              Certifications <span className="text-text-muted">(Optional)</span>
             </label>
             <input
               type="text"
               value={certifications}
               onChange={(e) => setCertifications(e.target.value)}
               placeholder="e.g., AWS Certified Solutions Architect, PMP"
-              className="w-full rounded-2xl border border-gray-700 bg-gray-800/50 px-5 py-4 text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-all"
+              className="w-full rounded-2xl border border-luxe-border bg-white px-5 py-4 text-text-heading placeholder:text-text-body/60 focus:border-violet focus:outline-none focus:ring-2 focus:ring-violet/20 transition-all"
             />
           </div>
         </div>
@@ -205,7 +205,7 @@ export default function ResumeUpload({ onAnalysisComplete }: ResumeUploadProps) 
           whileTap={{ scale: 0.95 }}
           type="submit"
           disabled={loading}
-          className="flex w-full items-center justify-center gap-3 rounded-full bg-white px-8 py-5 text-lg font-bold text-black transition-all hover:shadow-2xl hover:shadow-white/20 disabled:opacity-50 disabled:cursor-not-allowed mt-8"
+          className="flex w-full items-center justify-center gap-3 rounded-full bg-gradient-to-r from-violet to-violet-light px-8 py-5 text-lg font-bold text-white transition-all shadow-soft-lg hover:shadow-soft-xl disabled:opacity-50 disabled:cursor-not-allowed mt-8"
         >
           {loading ? (
             <>
