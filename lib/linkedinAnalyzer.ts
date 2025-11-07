@@ -80,7 +80,7 @@ Respond with ONLY this JSON structure (no markdown, no code blocks, just pure JS
       },
       {
         headers: {
-          'Authorization': `Bearer ${process.env.OPEN_ROUTER_API_KEY}`,
+          'Authorization': `Bearer ${process.env.OPEN_ROUTER_API_KEY_LINKEDIN}`,
           'Content-Type': 'application/json',
           'HTTP-Referer': process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
           'X-Title': 'Job Prep Assistant'

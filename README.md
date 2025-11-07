@@ -6,7 +6,7 @@ AI-powered platform for LinkedIn profile optimization and interview preparation.
 
 - **LinkedIn Profile Analyzer**: Analyze your LinkedIn profile and get comprehensive optimization recommendations
 - **Interview Prep Chatbot**: Personalized preparation roadmap based on job description
-- **AI-Powered Insights**: Uses Gemini for coaching and OpenRouter for profile analysis
+- **AI-Powered Insights**: Uses OpenRouter for both profile analysis and interview coaching
 - **No PDF Hassles**: Simple text input instead of file uploads - more reliable and comprehensive
 
 ## Setup
@@ -24,8 +24,9 @@ cp .env.example .env
 3. Configure environment variables in `.env`:
 - `FIREBASE_PROJECT_ID`: Firebase project ID
 - `FIREBASE_SERVICE_ACCOUNT`: Firebase service account JSON (for production)
-- `GEMINI_API_KEY`: Google Gemini API key
-- `OPEN_ROUTER_API_KEY`: OpenRouter API key
+- `OPEN_ROUTER_API_KEY`: OpenRouter API key for resume analysis
+- `OPEN_ROUTER_API_KEY_BOT`: OpenRouter API key for interview prep chatbot (GPT-4o mini)
+- `OPEN_ROUTER_API_KEY_LINKEDIN`: OpenRouter API key for LinkedIn profile review (GPT-4o mini)
 
 4. Initialize database:
 ```bash
@@ -44,7 +45,7 @@ Visit `http://localhost:3000`
 - **Frontend**: Next.js 14, React, TypeScript, Tailwind CSS
 - **Backend**: Next.js API Routes, Node.js
 - **Database**: Firebase Firestore
-- **AI**: Gemini (chatbot), OpenRouter (resume analysis)
+- **AI**: OpenRouter (profile analysis & chatbot)
 
 ## Usage
 
